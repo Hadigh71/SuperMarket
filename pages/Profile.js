@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import Header from './Header'
 
 export default function Profile() {
   return (
     <View>
-      <Text>Profile</Text>
+      <Header title="Profile" showSearchBar={false}/>
     </View>
   )
 }
