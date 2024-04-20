@@ -2,6 +2,24 @@ import React from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+
+const Welcome = ({ user, handleLogout }) => {
+  const navigation = useNavigation();
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.authContainer}>
+        <Text style={styles.title}>Welcome</Text>
+        <Text style={styles.emailText}>{user ? user.email : 'No user logged in'}</Text>
+        <TouchableOpacity style={styles.goHomeButton} onPress={() => navigation.navigate('Main')}>
+          <Text style={styles.goHomeText}>Go to Home</Text>
+        </TouchableOpacity>
+        <Button title="Logout" onPress={() => handleLogout(navigation)} color="#e74c3c" style={styles.button} />
+      </View>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -39,22 +57,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,  // Increased space between the Go to Home and Logout button
   }
 });
-
-const Welcome = ({ user, handleLogout }) => {
-  const navigation = useNavigation();
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.authContainer}>
-        <Text style={styles.title}>Welcome</Text>
-        <Text style={styles.emailText}>{user ? user.email : 'No user logged in'}</Text>
-        <TouchableOpacity style={styles.goHomeButton} onPress={() => navigation.navigate('Main')}>
-          <Text style={styles.goHomeText}>Go to Home</Text>
-        </TouchableOpacity>
-        <Button title="Logout" onPress={() => handleLogout(navigation)} color="#e74c3c" style={styles.button} />
-      </View>
-    </View>
-  );
-};
 
 export default Welcome;
