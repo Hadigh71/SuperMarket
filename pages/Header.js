@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
     userEmail: {
         color: Colors.WHITE,
-        fontSize: 25,  // Increase the font size
+        fontSize: 22,  // Increase the font size
         marginTop: 30,  // Adjust spacing as needed
         textAlign: 'center',  // Center text horizontally
         width: '100%'  // Ensure the text spans the full width
