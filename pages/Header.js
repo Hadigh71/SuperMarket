@@ -12,7 +12,7 @@ export default function Header({ title, showSearchBar = true, showCartLogo=true 
             <View style={styles.profileMainConatiner}>
                 <Text style={{ color: Colors.WHITE, fontSize: 25, marginTop: 30, marginTop:25 }}>{title}</Text>
                 {showCartLogo &&
-                <TouchableOpacity onPress={() => navigation.navigate('cart')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
                     <FontAwesome name="shopping-cart" size={27} style={{ marginTop: 30 }}
                         color="white" />
                 </TouchableOpacity>

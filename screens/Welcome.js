@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   goHomeText: {
     fontWeight: 'bold',
-    color: '#9C27B0',
+    color: 'green',
     textAlign: 'center',
     fontSize: 18,  // Slightly increase font size for better readability
   },

@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'black',
     marginTop: 20,
+    marginBottom:20
   }
 });
 
@@ -70,11 +71,45 @@ const Login = ({ handleAuthentication }) => {
           placeholder="Password"
           secureTextEntry
         />
-        <Button title="Log In" onPress={() => handleAuthentication(true, email, password, navigation)} color="#3498db" />
+        
+        <TouchableOpacity style={{width: '100%',
+            height: 50,
+            borderRadius: 5,
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 10,
+            borderWidth: 3,
+            borderColor: '#009ACF',
+            borderRadius: 5,}} onPress={() => handleAuthentication(true, email, password, navigation)} color="#3498db"  >
+              <Text
+            style={{
+              color: '#009ACF',
+              fontSize: 18,
+              fontWeight: '500',
+            }}>
+            Log In
+          </Text>
+         </TouchableOpacity>
         <Text style={styles.signUpText}>Don't have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={[styles.signUp, { fontWeight: 'bold' }]}>Sign Up</Text>
+        <TouchableOpacity style={{
+            width: '100%',
+            height: 50,
+            borderRadius: 5,
+            backgroundColor: '#009ACF',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }} onPress={() => navigation.navigate('SignUp')}>
+            <Text
+            style={{
+              color: 'white',
+              fontSize: 18,
+              fontWeight: '500',
+            }}>
+            Sign Up Instead
+          </Text>
         </TouchableOpacity>
+          
       </View>
     </View>
   );

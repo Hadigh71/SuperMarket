@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navigator from './navigator/Navigator';
 import { auth } from './firebase'; // Ensure this import correctly initializes Firebase
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
+import { CartProvider } from './Utils/CartContext';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -40,7 +41,11 @@ const App = () => {
   };
 
 
-  return <Navigator user={user} handleAuthentication={handleAuthentication} handleLogout={handleLogout} />;
+  return(
+    <CartProvider>
+      <Navigator user={user} handleAuthentication={handleAuthentication} handleLogout={handleLogout} />
+    </CartProvider>
+  ) 
 };
 
 export default App;
