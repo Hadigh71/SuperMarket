@@ -25,11 +25,11 @@ const App = () => {
       if (isLogin) {
         const response = await signInWithEmailAndPassword(auth, email, password);
         console.log('User signed in successfully!');
-        navigation.navigate('Welcome');
+        navigation.navigate('Main');
       } else {
         const response = await createUserWithEmailAndPassword(auth, email, password);
         console.log('User signed up successfully!');
-        navigation.navigate('Welcome');
+        navigation.navigate('Main');
       }
     } catch (error) {
       console.error('Authentication error:', error.message);
