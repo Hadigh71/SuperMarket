@@ -8,7 +8,7 @@ const getFruits = async () => {
     ];
 };
 
-const getMeat = async () => {
+const getMeats = async () => {
     return [
         { id: 4, category: 'Meat', name: 'Meat', price: 10.00, image: require('../assets/meat.png'), description: "High-quality beef, perfect for grilling or roasting." },
         { id: 5, category: 'Meat', name: 'Chicken', price: 7.50, image: require('../assets/chicken.png'), description: "Organically raised chicken, great for any poultry dish." },
@@ -37,7 +37,7 @@ const getSnacks = async () => {
 // Unified method to fetch all products
 const getAllProducts = async () => {
     const fruits = await getFruits();
-    const meats = await getMeat();
+    const meats = await getMeats();
     const tools = await getTools();
     const snacks = await getSnacks();
     return [...fruits, ...meats, ...tools, ...snacks];  // Combining all into one array
@@ -45,7 +45,7 @@ const getAllProducts = async () => {
 
 export default {
     getFruits,
-    getMeat,
+    getMeats,
     getTools,
     getSnacks,
     getAllProducts  // Exporting the new method

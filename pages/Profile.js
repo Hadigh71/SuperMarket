@@ -39,7 +39,7 @@ const Profile = ({ user, handleLogout }) => {
           data={profileMenu}
           renderItem={({ item }) => (
             <TouchableOpacity 
-              style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 40, paddingHorizontal: 80 }}
+              style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 40,marginTop:20, paddingHorizontal: 80 }}
               onPress={() => handleNavigation(item.name)}
             >
               <Ionicons name={item.icon} size={35} color={Colors.PRIMARY} />

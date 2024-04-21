@@ -42,9 +42,9 @@ const Navigator = ({ user, handleAuthentication, handleLogout }) => {
         <Stack.Screen name="Login" children={props => <Login {...props} handleAuthentication={handleAuthentication} />} />
         <Stack.Screen name="SignUp" children={props => <SignUp {...props} handleAuthentication={handleAuthentication} />} />
         <Stack.Screen name="Welcome" children={props => <Welcome {...props} user={user} handleLogout={handleLogout} />} />
-        <Stack.Screen name="Profile" component={Profile}/>
+        <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }}/>
         <Stack.Screen name="Main" children={() => <TabNavigation user={user} handleLogout={handleLogout} />} options={{ headerShown: false }} />
-        <Stack.Screen name="Details" component={Details}/>
+        <Stack.Screen name="Details" component={Details} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const CleaningTools = () => {
   const [tools, setTools] = useState([]);
-  const { addToCart }= useCart();
+  const [searchTerm, setSearchTerm]=useState('');
   const navigation=useNavigation();
 
   useEffect(() => {
@@ -18,21 +18,21 @@ const CleaningTools = () => {
     fetchTools();
   }, []);
 
+  const filteredTools = tools.filter(tool =>
+    tool.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <View style={{flex:1}}>
-      <Header title='Cleaning Tools' />
+      <Header title='Cleaning Tools' onSearchChange={setSearchTerm} />
       <FlatList
-        data={tools}
+        data={filteredTools}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate('Details', { item })} style={styles.card}>
             <Image source={item.image} style={styles.image} />
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.price}>${parseFloat(item.price).toFixed(2)}</Text>
-            <Button
-              title="Add to Cart"
-              onPress={() => addToCart(item)}
-              color="#20C659" // Optional: change button color
-            />
+            
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id.toString()}  // Use item.id as the key extractor

@@ -20,7 +20,7 @@ const Categories = () => {
 
     return (
         <View style={{ marginTop: 10, marginRight: 10, marginLeft: 20 }}>
-            <Heading text={'Categories'} isViewAll={true} />
+            <Heading text={'Categories'} />
             <FlatList
                 data={categories}
                 numColumns={4}  // Adjusted for better spacing, change according to your UI needs

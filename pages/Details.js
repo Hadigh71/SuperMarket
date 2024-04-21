@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300, // Adjust the height to fit your design
     resizeMode: 'cover',
-    marginTop:30
+    marginTop:80
   },
   textContainer: {
     padding: 20,

@@ -5,25 +5,28 @@ import Header from './Header';
 import { useNavigation } from '@react-navigation/native';
 import NoItemsGif from '../assets/empty.gif';
 import { useUser } from '../Utils/UserContext';
-import { firestore } from '../firebase'; // Make sure this is correctly imported
+import { firestore } from '../firebase'; 
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import delivery from '../assets/delivery.gif'
 
 const Cart = () => {
-  const { user } = useUser(); // Use context to access user
+  const {user}=useUser();
   const { cartItems, incrementQuantity, decrementQuantity, removeFromCart, getTotalCartAmount, clearCart,checkoutSuccessful, setCheckoutSuccessful } = useCart();
   const navigation = useNavigation();
-  const totalAmount = getTotalCartAmount();
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const filteredCartItems = cartItems.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
+const subtotal = filteredCartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
-  const handleCheckout = async (cartItems, userEmail, subtotal, clearCart) => {
+  const handleCheckout = async () => {
     try {
       const orderRef = collection(firestore, 'orders');
       await addDoc(orderRef, {
-        user: userEmail,
-        items: cartItems,
+        user: user.email,
+        items: filteredCartItems,
         subtotal: subtotal,
         createdAt: serverTimestamp(),
       });
@@ -38,7 +41,7 @@ const Cart = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Header title='Cart Items' showCartLogo={false} />
+      <Header title='Cart Items' showCartLogo={false} onSearchChange={setSearchTerm} />
       <View style={styles.container}>
         {checkoutSuccessful ? (
           <View style={styles.successContainer}>
@@ -47,9 +50,9 @@ const Cart = () => {
           </View>
         ) : (
           <>
-        {totalAmount > 0 ? (
+        {subtotal > 0 ? (
           <FlatList
-            data={cartItems}
+            data={filteredCartItems}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item }) => (
               <View style={styles.item}>
@@ -82,7 +85,7 @@ const Cart = () => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.checkoutButton}
-              onPress={() => handleCheckout(cartItems, user?.email, subtotal, clearCart)}>
+              onPress={() => handleCheckout()}>
               <Text style={styles.checkoutText}>Checkout</Text>
             </TouchableOpacity>
             <TouchableOpacity

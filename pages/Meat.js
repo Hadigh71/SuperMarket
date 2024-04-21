@@ -6,33 +6,33 @@ import { useCart } from '../Utils/CartContext';
 import { useNavigation } from '@react-navigation/native';
 
 const Meat = () => {
-  const [meat, setMeat] = useState([]);
-  const { addToCart }= useCart();
+  const [meats, setMeats] = useState([]);
+  const[searchTerm, setSearchTerm]= useState('');
   const navigation=useNavigation();
 
   useEffect(() => {
     async function fetchMeat() {
-      const meatData = await Products.getMeat();
-      setMeat(meatData);
+      const meatsData = await Products.getMeats();
+      setMeats(meatsData);
     }
     fetchMeat();
   }, []);
 
+  const filteredTools = meats.filter(meat =>
+    meat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <View style={{flex:1}}>
-      <Header title='Meat/Chicken/Fish' />
+      <Header title='Meat/Chicken/Fish' onSearchChange={setSearchTerm} />
       <FlatList
-        data={meat}
+        data={filteredTools}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() =>navigation.navigate('Details', { item })} style={styles.card}>
             <Image source={item.image} style={styles.image} />
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.price}>${parseFloat(item.price).toFixed(2)}</Text>
-            <Button
-              title="Add to Cart"
-              onPress={() => addToCart(item)}
-              color="#20C659" // Optional: change button color
-            />
+            
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id.toString()}  // Use item.id as the key extractor

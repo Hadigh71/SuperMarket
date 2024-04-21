@@ -22,7 +22,7 @@ const Slider = () => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <View style={{ marginRight: 20 }}>
+                    <View style={{ marginRight: 20, marginTop:20 }}>
                         <Image source={{ uri: item.image.url }}
                             style={styles.sliderImage}
                         />

@@ -1,32 +1,35 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+// Header.js
 import React from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Utils/Colors';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Header({ title, showSearchBar = true, showCartLogo = true, user, showEmail = false }) {
-    const navigation = useNavigation();
-    
+export default function Header({ title, showSearchBar = true, showCartLogo = true, user, showEmail = false, searchValue, onSearchChange }) {
+const navigation=useNavigation();
 
     return (
         <View style={styles.container}>
             <View style={styles.profileMainContainer}>
-                <Text style={{ color: Colors.WHITE, fontSize: 25, marginTop: 25 }}>{title}</Text>
+                <Text style={{ color: Colors.WHITE, fontSize: 25 }}>{title}</Text>
                 {showCartLogo &&
-                    <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
-                        <FontAwesome name="shopping-cart" size={27} style={{ marginTop: 30 }} color="white" />
+                    <TouchableOpacity onPress={()=> navigation.navigate('Cart')}>
+                        <FontAwesome name="shopping-cart" size={27} color="white" />
                     </TouchableOpacity>
                 }
             </View>
-
             {showEmail && user && (
-                <Text style={styles.userEmail}>{user.email}</Text>  // Customized style for email display
+                <Text style={styles.userEmail}>{user.email}</Text>
             )}
-
             {showSearchBar && (
                 <View style={styles.searchBarContainer}>
-                    <TextInput placeholder='Search' style={styles.TextInput} />
-                    <FontAwesome name="search" style={styles.searchbtn} size={24} color={Colors.PRIMARY} />
+                    <TextInput 
+                        placeholder='Search' 
+                        style={styles.TextInput} 
+                        value={searchValue}
+                        onChangeText={onSearchChange}
+                    />
+                    <FontAwesome name="search" size={24} color={Colors.PRIMARY} />
                 </View>
             )}
         </View>
@@ -40,20 +43,21 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.PRIMARY,
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
-        alignItems: 'center',  // Center content horizontally
+        alignItems: 'center',
     },
     profileMainContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: '100%'  // Ensure the container uses the full width
+        width: '100%',
+        marginTop:30
     },
     userEmail: {
         color: Colors.WHITE,
-        fontSize: 22,  // Increase the font size
-        marginTop: 30,  // Adjust spacing as needed
-        textAlign: 'center',  // Center text horizontally
-        width: '100%'  // Ensure the text spans the full width
+        fontSize: 22,
+        marginTop: 30,
+        textAlign: 'center',
+        width: '100%',
     },
     TextInput: {
         padding: 7,
@@ -61,23 +65,20 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.WHITE,
         borderRadius: 8,
         width: '85%',
-        fontSize: 16
+        fontSize: 16,
     },
     searchBarContainer: {
         marginTop: 40,
         flexDirection: 'row',
         gap: 10,
         marginBottom: 10,
-        width: '100%'  // Ensure the container uses the full width
+        width: '100%',
+        justifyContent:'center',
+        marginLeft:15
     },
     searchbtn: {
         backgroundColor: Colors.WHITE,
         padding: 10,
         borderRadius: 8
     },
-    userImage: {
-        width: 45,
-        height: 45,
-        borderRadius: 99
-    }
 });
