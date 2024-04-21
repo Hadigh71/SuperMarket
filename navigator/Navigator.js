@@ -15,6 +15,7 @@ import Chocolate from '../pages/Chocolate';
 import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Utils/Colors';
 import Details from '../pages/Details';
+import Hero from '../screens/Hero';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -36,7 +37,8 @@ function HomeStack() {
 const Navigator = ({ user, handleAuthentication, handleLogout }) => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Hero">
+        <Stack.Screen name="Hero" component={Hero} options={{ headerShown: false }}/>
         <Stack.Screen name="Login" children={props => <Login {...props} handleAuthentication={handleAuthentication} />} />
         <Stack.Screen name="SignUp" children={props => <SignUp {...props} handleAuthentication={handleAuthentication} />} />
         <Stack.Screen name="Welcome" children={props => <Welcome {...props} user={user} handleLogout={handleLogout} />} />
