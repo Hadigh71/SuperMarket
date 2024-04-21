@@ -1,22 +1,52 @@
-import React from 'react';
+import React , {useState}from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Image, Button } from 'react-native';
 import { useCart } from '../Utils/CartContext';
 import Header from './Header';
 import { useNavigation } from '@react-navigation/native';
 import NoItemsGif from '../assets/empty.gif';
+import { useUser } from '../Utils/UserContext';
+import { firestore } from '../firebase'; // Make sure this is correctly imported
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import delivery from '../assets/delivery.gif'
 
 const Cart = () => {
-  const { cartItems, incrementQuantity, decrementQuantity, removeFromCart, getTotalCartAmount } = useCart();
+  const { user } = useUser(); // Use context to access user
+  const { cartItems, incrementQuantity, decrementQuantity, removeFromCart, getTotalCartAmount, clearCart,checkoutSuccessful, setCheckoutSuccessful } = useCart();
   const navigation = useNavigation();
   const totalAmount = getTotalCartAmount();
 
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
 
+  const handleCheckout = async (cartItems, userEmail, subtotal, clearCart) => {
+    try {
+      const orderRef = collection(firestore, 'orders');
+      await addDoc(orderRef, {
+        user: userEmail,
+        items: cartItems,
+        subtotal: subtotal,
+        createdAt: serverTimestamp(),
+      });
+      console.log('Order saved!');
+      clearCart();
+      setCheckoutSuccessful(true);
+    } catch (error) {
+      console.error("Failed to save the order:", error);
+    }
+  };
+
+
   return (
     <View style={{ flex: 1 }}>
       <Header title='Cart Items' showCartLogo={false} />
       <View style={styles.container}>
+        {checkoutSuccessful ? (
+          <View style={styles.successContainer}>
+            <Text style={styles.successText}>Thank you for your order!</Text>
+            <Image source={delivery} style={styles.thankYouImage} />
+          </View>
+        ) : (
+          <>
         {totalAmount > 0 ? (
           <FlatList
             data={cartItems}
@@ -45,13 +75,15 @@ const Cart = () => {
             <Image source={NoItemsGif} style={styles.emptyGif} />
           </View>
         )}
+        </>
+        )}
         <View style={styles.footer}>
           <Text style={styles.subtotal}>Subtotal: ${subtotal.toFixed(2)}</Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.checkoutButton}
-              onPress={() => navigation.navigate('CheckoutScreenName')}>
-              <Text style={styles.checkoutText}>Go to Checkout</Text>
+              onPress={() => handleCheckout(cartItems, user?.email, subtotal, clearCart)}>
+              <Text style={styles.checkoutText}>Checkout</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.continueShoppingButton}
@@ -65,10 +97,30 @@ const Cart = () => {
   );
 };
 
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+  },
+  successContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  thankYouImage: {
+    width: 300,
+    height: 300,
+    resizeMode: 'contain',
+  },
+  successText: {
+    fontSize: 22,
+    color: 'green',
+    fontWeight: 'bold',
+    marginTop: 20,
   },
   item: {
     flexDirection: 'row',
@@ -176,6 +228,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 });
-
 export default Cart;
-

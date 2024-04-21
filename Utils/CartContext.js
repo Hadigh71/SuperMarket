@@ -6,9 +6,12 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [checkoutSuccessful, setCheckoutSuccessful] = useState(false);
+
 
   const addToCart = (item) => {
     setCartItems(currentItems => {
+      setCheckoutSuccessful(false);
       const foundIndex = currentItems.findIndex(cartItem => cartItem.id === item.id);
       if (foundIndex !== -1) {
         // If item exists, update quantity
@@ -48,9 +51,12 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
   
+  const clearCart=()=>{
+    setCartItems([]);
+  }
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, incrementQuantity, decrementQuantity, getTotalCartAmount }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, incrementQuantity, decrementQuantity, getTotalCartAmount, clearCart ,checkoutSuccessful, setCheckoutSuccessful}}>
       {children}
     </CartContext.Provider>
   );

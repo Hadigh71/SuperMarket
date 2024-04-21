@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function Header({ title, showSearchBar = true, showCartLogo = true, user, showEmail = false }) {
     const navigation = useNavigation();
+    
 
     return (
         <View style={styles.container}>

@@ -3,10 +3,12 @@ import { View, Image, Text, StyleSheet,Button, FlatList, TouchableOpacity } from
 import Products from '../Utils/Products';  // Ensure this path is correct
 import Header from './Header';  // Ensure this path is correct
 import { useCart } from '../Utils/CartContext';
+import { useNavigation } from '@react-navigation/native';
 
 const Meat = () => {
   const [meat, setMeat] = useState([]);
   const { addToCart }= useCart();
+  const navigation=useNavigation();
 
   useEffect(() => {
     async function fetchMeat() {
@@ -22,7 +24,7 @@ const Meat = () => {
       <FlatList
         data={meat}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => addToCart(item)} style={styles.card}>
+          <TouchableOpacity onPress={() =>navigation.navigate('Details', { item })} style={styles.card}>
             <Image source={item.image} style={styles.image} />
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.price}>${parseFloat(item.price).toFixed(2)}</Text>

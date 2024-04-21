@@ -4,6 +4,8 @@ import Navigator from './navigator/Navigator';
 import { auth } from './firebase'; // Ensure this import correctly initializes Firebase
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
 import { CartProvider } from './Utils/CartContext';
+import { UserProvider } from './Utils/UserContext';
+
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -11,11 +13,11 @@ const App = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authenticatedUser) => {
-        console.log("Auth State Changed: ", authenticatedUser);
-        setUser(authenticatedUser);  // Make sure this is not nested or conditional without proper checks
+      console.log("Auth State Changed: ", authenticatedUser);
+      setUser(authenticatedUser);  // Make sure this is not nested or conditional without proper checks
     });
     return unsubscribe;  // Make sure this is the function returned directly for cleanup
-}, []);
+  }, []);
 
 
   const handleAuthentication = async (isLogin, email, password, navigation) => {
@@ -33,30 +35,32 @@ const App = () => {
       console.error('Authentication error:', error.message);
     }
   };
-  
+
   const handleLogout = async (navigation) => {
     try {
       await signOut(auth); // Assuming 'auth' is your Firebase auth instance
       console.log("User signed out");
-  
+
       // Properly reset the navigation stack
       navigation.reset({
         index: 0,
         routes: [{ name: 'Login' }],
       });
-  
+
     } catch (error) {
       console.error("Failed to sign out:", error);
     }
   };
-  
 
 
-  return(
-    <CartProvider>
-      <Navigator user={user} handleAuthentication={handleAuthentication} handleLogout={handleLogout} />
-    </CartProvider>
-  ) 
+
+  return (
+    <UserProvider>
+      <CartProvider>
+        <Navigator user={user} handleAuthentication={handleAuthentication} handleLogout={handleLogout} />
+      </CartProvider>
+    </UserProvider>
+  )
 };
 
 export default App;
