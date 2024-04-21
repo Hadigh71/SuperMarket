@@ -33,7 +33,7 @@ const Profile = ({ user, handleLogout }) => {
 
   return (
     <View>
-      <Header title="Profile" user={user} showSearchBar={false} showEmail={true} />
+      <Header title="Profile" user={user} showSearchBar={false} showBackArrow={false} showEmail={true} />
       <View style={{ paddingTop: 60 }}>
         <FlatList  
           data={profileMenu}

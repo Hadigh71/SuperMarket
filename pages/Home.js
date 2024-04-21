@@ -7,7 +7,7 @@ import Categories from './Categories'
 export default function HomeScreen() {
   return (
     <View>
-      <Header title="Home Page" showSearchBar={false}/>
+      <Header title="Home Page" showSearchBar={false} showBackArrow={false}/>
       <View style={{padding:20 , marginTop:30}}>
         
         <Slider/>

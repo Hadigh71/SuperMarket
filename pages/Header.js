@@ -5,27 +5,37 @@ import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Utils/Colors';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Header({ title, showSearchBar = true, showCartLogo = true, user, showEmail = false, searchValue, onSearchChange }) {
-const navigation=useNavigation();
+export default function Header({ title, showSearchBar = true, showCartLogo = true, user, showEmail = false, showBackArrow = true, searchValue, onSearchChange }) {
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
             <View style={styles.profileMainContainer}>
-                <Text style={{ color: Colors.WHITE, fontSize: 25 }}>{title}</Text>
-                {showCartLogo &&
-                    <TouchableOpacity onPress={()=> navigation.navigate('Cart')}>
-                        <FontAwesome name="shopping-cart" size={27} color="white" />
+                {showBackArrow &&
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <FontAwesome name="arrow-left" size={24} color="white" />
                     </TouchableOpacity>
                 }
+                {showCartLogo ? (
+                    <View style={styles.headerContainer}>
+                        <Text style={{ color: Colors.WHITE, fontSize: 22, fontWeight:'bold',flexGrow:1, marginLeft:10, textAlign:'center' }}>{title}</Text>
+
+                    <TouchableOpacity style={styles.cart} onPress={() => navigation.navigate('Cart')}>
+                        <FontAwesome name="shopping-cart" size={27} color="white" />
+                    </TouchableOpacity>
+                    </View>
+                ):(
+                    <Text style={{ color: Colors.WHITE, fontSize: 25, fontWeight:'bold', flexGrow:1,marginRight:20, textAlign:'center' }}>{title}</Text>
+                )}
             </View>
             {showEmail && user && (
                 <Text style={styles.userEmail}>{user.email}</Text>
             )}
             {showSearchBar && (
                 <View style={styles.searchBarContainer}>
-                    <TextInput 
-                        placeholder='Search' 
-                        style={styles.TextInput} 
+                    <TextInput
+                        placeholder='Search'
+                        style={styles.TextInput}
                         value={searchValue}
                         onChangeText={onSearchChange}
                     />
@@ -50,11 +60,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        marginTop:30
+        marginTop: 30
     },
     userEmail: {
         color: Colors.WHITE,
-        fontSize: 22,
+        fontSize: 18.5,
         marginTop: 30,
         textAlign: 'center',
         width: '100%',
@@ -73,12 +83,21 @@ const styles = StyleSheet.create({
         gap: 10,
         marginBottom: 10,
         width: '100%',
-        justifyContent:'center',
-        marginLeft:15
+        justifyContent: 'center',
+        marginLeft: 15
     },
     searchbtn: {
         backgroundColor: Colors.WHITE,
         padding: 10,
         borderRadius: 8
     },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center', // Ensures the title text centers when there is no icon
+        width: '100%',
+    },
+    cart:{
+        marginRight:15
+    }
 });
