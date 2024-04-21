@@ -16,10 +16,10 @@ import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Utils/Colors';
 import Details from '../pages/Details';
 import Hero from '../screens/Hero';
+import Contact from '../screens/Contact';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
 
 function HomeStack() {
   return (
@@ -29,10 +29,28 @@ function HomeStack() {
       <Stack.Screen name="meat" component={Meat} />
       <Stack.Screen name="tools" component={CleaningTools} />
       <Stack.Screen name="chocolate" component={Chocolate} />
+      <Stack.Screen name="Details" component={Details} />
+      <Stack.Screen name='Contact' component={Contact}/>
     </Stack.Navigator>
   );
 }
 
+function TabNavigation({ user, handleLogout }) {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false, tabBarActiveTintColor: Colors.PRIMARY }}>
+      <Tab.Screen name="Home" component={HomeStack} options={{
+        tabBarIcon: ({ color, size }) => (<FontAwesome name="home" size={size} color={color} />)
+      }} />
+      <Tab.Screen name="Cart" children={() => <Cart user={user} />} options={{
+        tabBarIcon: ({ color, size }) => (<FontAwesome name="shopping-cart" size={size} color={color} />)
+      }} />
+      <Tab.Screen name="Profile" children={() => <Profile user={user} handleLogout={handleLogout} />} options={{
+        tabBarIcon: ({ color, size }) => (<FontAwesome name="user-circle" size={size} color={color} />)
+      }} />
+      
+    </Tab.Navigator>
+  );
+}
 
 const Navigator = ({ user, handleAuthentication, handleLogout }) => {
   return (
@@ -42,21 +60,9 @@ const Navigator = ({ user, handleAuthentication, handleLogout }) => {
         <Stack.Screen name="Login" children={props => <Login {...props} handleAuthentication={handleAuthentication} />} />
         <Stack.Screen name="SignUp" children={props => <SignUp {...props} handleAuthentication={handleAuthentication} />} />
         <Stack.Screen name="Welcome" children={props => <Welcome {...props} user={user} handleLogout={handleLogout} />} />
-        <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }}/>
-        <Stack.Screen name="Main" children={() => <TabNavigation user={user} handleLogout={handleLogout} />} options={{ headerShown: false }} />
-        <Stack.Screen name="Details" component={Details} options={{ headerShown: false }}/>
+        <Stack.Screen name="home" children={() => <TabNavigation user={user} handleLogout={handleLogout} />} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
-}
-
-function TabNavigation({ user, handleLogout }) {
-  return (
-    <Tab.Navigator screenOptions={{ headerShown: false, tabBarActiveTintColor: Colors.PRIMARY }}>
-      <Tab.Screen name="Home" component={HomeStack} options={{ tabBarIcon: ({ color, size }) => (<FontAwesome name="home" size={size} color={color} />) }} />
-      <Tab.Screen name="Cart" children={() => <Cart user={user}  />} options={{ tabBarIcon: ({ color, size }) => (<FontAwesome name="shopping-cart" size={size} color={color} />) }} />
-      <Tab.Screen name="Profile" children={() => <Profile user={user} handleLogout={handleLogout} />} options={{ tabBarIcon: ({ color, size }) => (<FontAwesome name="user-circle" size={size} color={color} />) }} />
-    </Tab.Navigator>
   );
 }
 

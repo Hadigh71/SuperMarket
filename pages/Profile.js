@@ -24,6 +24,7 @@ const Profile = ({ user, handleLogout }) => {
         navigation.navigate('Cart');
         break;
       case 'Contact us':
+        navigation.navigate('Contact')
         break;
       case 'Logout':
         handleLogout(navigation);

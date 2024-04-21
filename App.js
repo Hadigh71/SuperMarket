@@ -5,6 +5,7 @@ import { auth } from './firebase'; // Ensure this import correctly initializes F
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
 import { CartProvider } from './Utils/CartContext';
 import { UserProvider } from './Utils/UserContext';
+import { Alert } from 'react-native'; // Import Alert from react-native
 
 
 const App = () => {
@@ -25,14 +26,14 @@ const App = () => {
       if (isLogin) {
         const response = await signInWithEmailAndPassword(auth, email, password);
         console.log('User signed in successfully!');
-        navigation.navigate('Main');
+        navigation.navigate('home');
       } else {
         const response = await createUserWithEmailAndPassword(auth, email, password);
         console.log('User signed up successfully!');
-        navigation.navigate('Main');
+        navigation.navigate('home');
       }
     } catch (error) {
-      console.error('Authentication error:', error.message);
+      Alert.alert('Authentication error:', error.message);
     }
   };
 
@@ -48,7 +49,7 @@ const App = () => {
       });
 
     } catch (error) {
-      console.error("Failed to sign out:", error);
+      Alert.alert("Failed to sign out:", error);
     }
   };
 
