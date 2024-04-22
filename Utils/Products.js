@@ -34,13 +34,30 @@ const getSnacks = async () => {
     ];
 };
 
-// Unified method to fetch all products
+const getElectronics = async () => {
+    return [
+        { id: 15, category: 'Electronics', name: 'Refrigerator', price: 600.00, image: require('../assets/refrigerator.png'), description: "Cool, crisp storage for all your perishables." },
+        { id: 16, category: 'Electronics', name: 'Laundry Machine', price: 300.00, image: require('../assets/laundry.jpeg'), description: "Clean and fresh laundry with every cycle." },
+        { id: 17, category: 'Electronics', name: 'Television', price: 500.00, image: require('../assets/television.png'), description: "Crystal clear visuals for your viewing pleasure." },
+    ];
+};
+
+const getCanned = async () => {
+    return [
+        { id: 15, category: 'Canned', name: 'Tuna can', price: 2.00, image: require('../assets/tuna.png'), description: "Premium, ready-to-eat tuna, perfect for quick meals and nutritious snacks." },
+        { id: 16, category: 'Canned', name: 'Sweet corn', price: 3.50, image: require('../assets/corn.png'), description: "Crisp, sweet corn kernels, preserved at the peak of freshness for the perfect addition to any dish." },
+        { id: 17, category: 'Canned', name: 'Cooked beans', price: 5.00, image: require('../assets/beans.png'), description: "Rich and savory cooked beans, a hearty and nutritious base for any meal." },
+    ];
+};
+
 const getAllProducts = async () => {
     const fruits = await getFruits();
     const meats = await getMeats();
     const tools = await getTools();
     const snacks = await getSnacks();
-    return [...fruits, ...meats, ...tools, ...snacks];  // Combining all into one array
+    const electronics= await getElectronics();
+    const canned=await getCanned();
+    return [...fruits, ...meats, ...tools, ...snacks, ...electronics, ...canned];  // Combining all into one array
 };
 
 export default {
@@ -48,5 +65,7 @@ export default {
     getMeats,
     getTools,
     getSnacks,
-    getAllProducts  // Exporting the new method
+    getElectronics,
+    getCanned,
+    getAllProducts  
 };

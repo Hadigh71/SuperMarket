@@ -8,11 +8,11 @@ export default function HomeScreen() {
   return (
     <View>
       <Header title="Home Page" showSearchBar={false} showBackArrow={false}/>
-      <View style={{padding:20 , marginTop:30}}>
+      <View style={{padding:20 , marginTop:20}}>
         
         <Slider/>
       </View>
-      <View style={{marginTop:40}}>
+      <View style={{marginTop:35}}>
       <Categories/>
       </View>
       

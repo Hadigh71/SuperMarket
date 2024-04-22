@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, Text, StyleSheet,Button, FlatList, TouchableOpacity } from 'react-native';
-import Products from '../Utils/Products';  // Ensure this path is correct
-import Header from './Header';  // Ensure this path is correct
+import Products from '../Utils/Products';  
+import Header from './Header';  
 import { useCart } from '../Utils/CartContext';
 import { useNavigation } from '@react-navigation/native';
 
-const Chocolate = () => {
-  const [snacks, setSnacks] = useState([]);
+const CannedFood = () => {
+  const [canned, setCanned] = useState([]);
   const[searchTerm, setSearchTerm]= useState('');
   const navigation= useNavigation();
 
   useEffect(() => {
-    async function fetchSnacks() {
-      const snacksData = await Products.getSnacks();
-      setSnacks(snacksData);
+    async function fetchCanned() {
+      const cannedData = await Products.getCanned();
+      setCanned(cannedData);
     }
-    fetchSnacks();
+    fetchCanned();
   }, []);
 
-  const filteredSnacks = snacks.filter(snack =>
-    snack.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCanned = canned.filter(can =>
+    can.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <View style={{flex:1}}>
-      <Header title='Chocolate & Snacks' onSearchChange={setSearchTerm} />
+      <Header title='Canned Food' onSearchChange={setSearchTerm} />
       <FlatList
-        data={filteredSnacks}
+        data={filteredCanned}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate('Details', { item })} style={styles.card}>
             <Image source={item.image} style={styles.image} />
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Chocolate;
+export default CannedFood;

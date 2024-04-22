@@ -17,6 +17,9 @@ import Colors from '../Utils/Colors';
 import Details from '../pages/Details';
 import Hero from '../screens/Hero';
 import Contact from '../screens/Contact';
+import Electronics from '../pages/Electronics';
+import CannedFood from '../pages/CannedFood';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,6 +32,8 @@ function HomeStack() {
       <Stack.Screen name="meat" component={Meat} />
       <Stack.Screen name="tools" component={CleaningTools} />
       <Stack.Screen name="chocolate" component={Chocolate} />
+      <Stack.Screen name="electronics" component={Electronics} />
+      <Stack.Screen name="canned" component={CannedFood} />
       <Stack.Screen name="Details" component={Details} />
       <Stack.Screen name='Contact' component={Contact}/>
     </Stack.Navigator>

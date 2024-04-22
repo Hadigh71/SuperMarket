@@ -15,7 +15,7 @@ const Categories = () => {
     }, []);
 
     const handlePress = (navTarget) => {
-        navigation.navigate(navTarget); // Use the navTarget to navigate
+        navigation.navigate(navTarget); 
     };
 
     return (
@@ -23,7 +23,7 @@ const Categories = () => {
             <Heading text={'Categories'} />
             <FlatList
                 data={categories}
-                numColumns={4}  // Adjusted for better spacing, change according to your UI needs
+                numColumns={4}  
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => handlePress(item.navTarget)} style={styles.touchableContainer}>
                         <View style={styles.iconContainer}>

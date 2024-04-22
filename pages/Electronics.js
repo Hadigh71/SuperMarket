@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, Text, StyleSheet,Button, FlatList, TouchableOpacity } from 'react-native';
-import Products from '../Utils/Products';  // Ensure this path is correct
-import Header from './Header';  // Ensure this path is correct
+import Products from '../Utils/Products';  
+import Header from './Header';  
 import { useCart } from '../Utils/CartContext';
 import { useNavigation } from '@react-navigation/native';
 
 const Chocolate = () => {
-  const [snacks, setSnacks] = useState([]);
+  const [electronics, setElectronics] = useState([]);
   const[searchTerm, setSearchTerm]= useState('');
   const navigation= useNavigation();
 
   useEffect(() => {
-    async function fetchSnacks() {
-      const snacksData = await Products.getSnacks();
-      setSnacks(snacksData);
+    async function fetchElectronics() {
+      const electronicsData = await Products.getElectronics();
+      setElectronics(electronicsData);
     }
-    fetchSnacks();
+    fetchElectronics();
   }, []);
 
-  const filteredSnacks = snacks.filter(snack =>
-    snack.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredElectronics = electronics.filter(electronic =>
+    electronic.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <View style={{flex:1}}>
-      <Header title='Chocolate & Snacks' onSearchChange={setSearchTerm} />
+      <Header title='Electronics' onSearchChange={setSearchTerm} />
       <FlatList
-        data={filteredSnacks}
+        data={filteredElectronics}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate('Details', { item })} style={styles.card}>
             <Image source={item.image} style={styles.image} />
