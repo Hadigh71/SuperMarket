@@ -28,7 +28,7 @@ const Hero = () => {
                         setModalVisible(!modalVisible);
                     }}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalTitle}>Welcome to Spinneys!</Text>
+                        <Text style={styles.modalTitle}>Welcome to MarketMate!</Text>
                         <Text style={styles.modalText}>
                             We're excited to help you find everything you need for your home and kitchen.
                             Browse our wide selection of fresh produce.

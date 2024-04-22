@@ -19,6 +19,8 @@ import Hero from '../screens/Hero';
 import Contact from '../screens/Contact';
 import Electronics from '../pages/Electronics';
 import CannedFood from '../pages/CannedFood';
+import Drinks from '../pages/Drinks';
+import PetsFood from '../pages/PetsFood';
 
 
 const Stack = createStackNavigator();
@@ -34,6 +36,8 @@ function HomeStack() {
       <Stack.Screen name="chocolate" component={Chocolate} />
       <Stack.Screen name="electronics" component={Electronics} />
       <Stack.Screen name="canned" component={CannedFood} />
+      <Stack.Screen name='drinks' component={Drinks}/>
+      <Stack.Screen name='pets' component={PetsFood}/>
       <Stack.Screen name="Details" component={Details} />
       <Stack.Screen name='Contact' component={Contact}/>
     </Stack.Navigator>

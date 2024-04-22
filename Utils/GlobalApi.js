@@ -30,6 +30,10 @@ const getCategories = async () => {
         { name: 'Chocolate & Snacks', imagePath: 'chocolate.jpg', navTarget: 'chocolate' },
         { name: 'Electronics', imagePath: 'electronics.jpg', navTarget: 'electronics' },
         { name: 'Canned Food', imagePath: 'canned.webp', navTarget: 'canned' },
+        { name: 'Drinks', imagePath: 'drinks.png', navTarget: 'drinks' },
+        { name: 'Pets Food', imagePath: 'pets.webp', navTarget: 'pets' },
+
+
 
     ];
     const categoryData = await Promise.all(categories.map(async category => {

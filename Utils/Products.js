@@ -50,6 +50,22 @@ const getCanned = async () => {
     ];
 };
 
+const getDrinks = async () => {
+    return [
+        { id: 18, category: 'Drink', name: 'Pineapple juice', price: 1.50, image: require('../assets/maccaw.jpeg'), description: "Best natural juice. " },
+        { id: 19, category: 'Drink', name: 'Water', price: 1.00, image: require('../assets/water.jpeg'), description: "Fresh water. " },
+        { id: 20, category: 'Drink', name: 'Pepsi', price: 2.00, image: require('../assets/pepsi.jpeg'), description: "Best drink next to your burger or pizza." },
+    ];
+};
+
+const getPets = async () => {
+    return [
+        { id: 18, category: 'Pets Food', name: 'Cat Food', price: 2.00, image: require('../assets/cat.jpg'), description: "Nutritious and delicious, our cat food is formulated to meet all your feline's dietary needs, ensuring a healthy coat and sharp vision." },
+        { id: 19, category: 'Pets Food', name: 'Dog Food', price: 2.00, image: require('../assets/dog.jpeg'), description: "Packed with high-quality protein and essential nutrients, this dog food keeps your canine companion energetic and healthy." },
+        { id: 20, category: 'Pets Food', name: 'Rabbit Food', price: 2.00, image: require('../assets/rabbit.png'), description: "Specially blended to provide all the necessary fibers and vitamins, our rabbit food supports digestive health and vitality." },
+    ];
+};
+
 const getAllProducts = async () => {
     const fruits = await getFruits();
     const meats = await getMeats();
@@ -57,7 +73,11 @@ const getAllProducts = async () => {
     const snacks = await getSnacks();
     const electronics= await getElectronics();
     const canned=await getCanned();
-    return [...fruits, ...meats, ...tools, ...snacks, ...electronics, ...canned];  // Combining all into one array
+    const drinks=await getDrinks();
+    const pets=await getPets();
+    
+
+    return [...fruits, ...meats, ...tools, ...snacks, ...electronics, ...canned, ...drinks, ...pets];  // Combining all into one array
 };
 
 export default {
@@ -67,5 +87,7 @@ export default {
     getSnacks,
     getElectronics,
     getCanned,
-    getAllProducts  
+    getDrinks,
+    getPets,
+    getAllProducts
 };

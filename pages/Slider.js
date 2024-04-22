@@ -1,11 +1,13 @@
 // Slider.js
 import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import GlobalApi from '../Utils/GlobalApi'
 import Heading from '../Utils/Heading'
+import { useNavigation } from '@react-navigation/native';
 
 const Slider = () => {
     const [images, setImages] = useState([]);
+    const navigation=useNavigation();
 
     useEffect(() => {
         GlobalApi.getSliders().then(images => {
@@ -22,11 +24,13 @@ const Slider = () => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
+                    <TouchableOpacity onPress={()=> navigation.navigate('Details', {item:item, showButton:false})}>
                     <View style={{ marginRight: 20, marginTop:20 }}>
                         <Image source={{ uri: item.image.url }}
                             style={styles.sliderImage}
                         />
                     </View>
+                    </TouchableOpacity>
                 )}
                 keyExtractor={item => item.image.url} // Ensuring key is unique
             />
